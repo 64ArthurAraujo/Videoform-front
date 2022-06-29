@@ -1,3 +1,7 @@
-<h1 class="text-3xl">
-    Hello world!
-</h1>
+<script lang="ts">
+    import FileUploadForm from "../components/FileUploadForm.svelte";
+</script>
+
+
+<FileUploadForm urlToSend="http://localhost:8090/api/v0.0.1/insert/videos">
+</FileUploadForm>
