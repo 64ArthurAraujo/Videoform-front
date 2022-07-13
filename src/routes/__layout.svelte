@@ -7,5 +7,6 @@
 	<html lang="en" />
 </svelte:head>
 
+<body class="bg-slate-700"/>
 
 <slot />

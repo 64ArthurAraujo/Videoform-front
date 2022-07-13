@@ -23,7 +23,7 @@ export function doLogin(urlToSend: string) {
                 case 401: console.error("Login failed, no matching credentials found.");
                     break;
                 
-                case 200: console.log("Authorized");
+                case 200: login(this.responseText);
                     break;
                 
                 default: console.error("Error unexpected status code");
@@ -32,6 +32,11 @@ export function doLogin(urlToSend: string) {
     }
 
     xhr.send(JSON.stringify(loginInformation));
+}
+
+function login(token: string) {
+    document.cookie = `atoken=${token}`;
+    window.location.replace("http://localhost:3000/");
 }
 
 function formsAreInvalid(username: HTMLInputElement, password: HTMLInputElement): boolean {
