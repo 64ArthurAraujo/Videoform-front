@@ -3,8 +3,6 @@
     import LoginForm from "../components/LoginForm.svelte";
 </script>
 
-<Header>
-
-</Header>
+<Header/>
 
 <LoginForm urlToSend="http://localhost:8090/api/v0.0.1/retrieve/users/login"></LoginForm>

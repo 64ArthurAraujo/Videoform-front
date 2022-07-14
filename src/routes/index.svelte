@@ -1,7 +1,21 @@
 <script lang="ts">
-    import FileUploadForm from "../components/FileUploadForm.svelte";
+    import { parseCookies } from "../actions/cookies";
+    import { onMount } from "svelte";
+    import Header from "../components/Header.svelte";
+
+    let isLoggedUser = false;
+
+    onMount(async () => {
+        const cookies = parseCookies(document.cookie);
+
+        for (const cookie of cookies) {
+            if (cookie.key === "atoken") {
+
+            }
+        }
+
+        console.log(isLoggedUser)
+    });
 </script>
 
-
-<FileUploadForm urlToSend="http://localhost:8090/api/v0.0.1/insert/videos">
-</FileUploadForm>
+<Header />
