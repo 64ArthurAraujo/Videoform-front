@@ -5,4 +5,4 @@
 
 <Header />
 
-<RegisterForm />
+<RegisterForm urlToSend="http://localhost:8090/api/v0.0.1/insert/users/" />

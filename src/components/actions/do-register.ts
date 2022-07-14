@@ -1,17 +1,18 @@
 import { formsAreInvalid } from "./util/check-forms";
 
-export function doLogin(urlToSend: string) {
+export function doRegister(urlToSend: string) {
     let username = document.getElementById("usrnm") as HTMLInputElement;
     let password = document.getElementById("psswd") as HTMLInputElement;
+    let passwordext = document.getElementById("psswde") as HTMLInputElement;
 
-    if (formsAreInvalid(username, password)) return;
+    if (formsAreInvalid(username, password, passwordext)) return;
 
     const loginInformation = 
     { 
         "username": `${username.value}`,
         "password": `${password.value}`
     }
-    
+
     let xhr = new XMLHttpRequest();
     xhr.open('POST', urlToSend, true);
 
@@ -21,14 +22,11 @@ export function doLogin(urlToSend: string) {
     xhr.onreadystatechange = function () { 
         if (this.readyState === XMLHttpRequest.DONE) 
         {
-            switch (this.status) {
-                case 401: console.error("Login failed, no matching credentials found.");
+            switch (this.status) {  
+                case 201: saveTokenAndRedirect(this.responseText);
                     break;
                 
-                case 200: login(this.responseText);
-                    break;
-                
-                default: console.error("Error unexpected status code");
+                default: console.error("Error unexpected status code: " + this.status);
             }
         }
     }
@@ -36,7 +34,7 @@ export function doLogin(urlToSend: string) {
     xhr.send(JSON.stringify(loginInformation));
 }
 
-function login(token: string) {
+function saveTokenAndRedirect(token: string) {
     document.cookie = `atoken=${token}`;
     window.location.replace("http://localhost:3000/");
 }
