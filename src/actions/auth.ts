@@ -1,8 +1,8 @@
-import { setLogged } from "../context/auth-context";
+import { isLoggedUser, setLogged, setUserInfo, type UserInformation } from "../context/auth-context";
 
 const urlToSend = "http://localhost:8090/api/v0.0.1/retrieve/users/check/token";
 
-export function checkAuthTokenExists(token: string) {
+export function retrieveLoggedUserInformation(token: string) {
     let tokenCheckRequest = 
     {
         "token": token,
@@ -19,9 +19,14 @@ export function checkAuthTokenExists(token: string) {
         {
             switch (this.status) {
                 case 200: 
-                    let isAuthTokenValid = doAuthExists(this.responseText);
-                    setLogged(isAuthTokenValid);
+                    let tokenIsValid = doAuthExists(this.responseText);
 
+                    setLogged(tokenIsValid);
+
+                    if (tokenIsValid) {
+                        let parsedResponse = JSON.parse(this.responseText);
+                        setUserInfo(parsedResponse as UserInformation);
+                    }
                     break;
                 
                 default: console.error("Error unexpected status code");
@@ -33,8 +38,8 @@ export function checkAuthTokenExists(token: string) {
 
 }
 
-function doAuthExists(doAuthTokenExists: string) {
-    if (doAuthTokenExists === "true") {
+function doAuthExists(authCheckResult: string) {
+    if (authCheckResult !== "User not found") {
         return true;
     } 
     
