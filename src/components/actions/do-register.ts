@@ -36,5 +36,5 @@ export function doRegister(urlToSend: string) {
 
 function saveTokenAndRedirect(token: string) {
     document.cookie = `atoken=${token}`;
-    window.location.replace("http://localhost:3000/");
+    window.location.replace("http://localhost:8080/");
 }

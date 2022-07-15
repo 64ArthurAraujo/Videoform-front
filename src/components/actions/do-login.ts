@@ -38,5 +38,5 @@ export function doLogin(urlToSend: string) {
 
 function login(token: string) {
     document.cookie = `atoken=${token}`;
-    window.location.replace("http://localhost:3000/");
+    window.location.replace("http://localhost:8080/");
 }
