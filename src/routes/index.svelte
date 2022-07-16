@@ -1,32 +1,28 @@
 <script lang="ts">
 import Header from "../components/Header.svelte";
-import { parseCookies } from "../actions/cookies";
 import { onMount } from "svelte";
-import { retrieveLoggedUserInformation } from "../actions/auth";
-import { isLoggedUser, userInformation } from "../context/auth-context";
+import { isValidUser, userInformation, type UserInformation } from "../context/auth-context";
+import { doCookieActions } from "../actions/cookies";
 
-let avatarUrl: string = "";
-let username: string = "";
+let user: UserInformation =
+{
+    id: "0",
+    username: "Guest"
+}
 
 onMount(async () => {
-    const cookies = parseCookies(document.cookie);
+    doCookieActions();
 
-    for (const cookie of cookies) {
-        if (cookie.key === "atoken") {
-            retrieveLoggedUserInformation(cookie.value)
-        }
-    }
-
-    const checkInfo = 
+    const updateUserInformation = 
         setInterval(() => {
-            if (isLoggedUser === true) {
-                username = userInformation.username;
+            if (isValidUser === true) {
+                user = userInformation;
 
-                clearInterval(checkInfo);
+                clearInterval(updateUserInformation);
             }
         }, 1000);
 });
 
 </script>
 
-<Header username="{username}" />
+<Header username="{user.username}" />

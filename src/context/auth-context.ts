@@ -3,11 +3,11 @@ export interface UserInformation {
     username: string;
 }
 
-export let isLoggedUser: boolean = false;
+export let isValidUser: boolean = false;
 export let userInformation: UserInformation = {} as UserInformation;
 
 export function setLogged(bool: boolean) {
-    isLoggedUser = bool;
+    isValidUser = bool;
 }
 
 export function setUserInfo(info: UserInformation) {

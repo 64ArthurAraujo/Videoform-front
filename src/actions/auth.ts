@@ -1,8 +1,8 @@
-import { isLoggedUser, setLogged, setUserInfo, type UserInformation } from "../context/auth-context";
+import { setLogged, setUserInfo, type UserInformation } from "../context/auth-context";
 
 const urlToSend = "http://localhost:8090/api/v0.0.1/retrieve/users/check/token";
 
-export function retrieveLoggedUserInformation(token: string) {
+export function fetchUserInfo(token: string) {
     let tokenCheckRequest = 
     {
         "token": token,

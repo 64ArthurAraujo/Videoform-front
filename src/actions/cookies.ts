@@ -1,3 +1,5 @@
+import { fetchUserInfo } from "./auth";
+
 interface Cookie {
     key: string;
     value: string;
@@ -19,4 +21,16 @@ export function parseCookies(rawCookies: string) {
     }
 
     return cookieArray;
+}
+
+export function doCookieActions() {
+
+    const cookies = parseCookies(document.cookie);
+
+    for (const cookie of cookies) {
+        if (cookie.key === "atoken") {
+            fetchUserInfo(cookie.value)
+        }
+    }
+
 }
