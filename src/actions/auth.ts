@@ -1,4 +1,4 @@
-import { setLogged, setUserInfo, type UserInformation } from "../context/auth-context";
+import { setLogged, setUserInfo, type User } from "../context/auth-context";
 
 const urlToSend = "http://localhost:8090/api/v0.0.1/retrieve/users/check/token";
 
@@ -25,7 +25,7 @@ export function fetchUserInfo(token: string) {
 
                     if (tokenIsValid) {
                         let parsedResponse = JSON.parse(this.responseText);
-                        setUserInfo(parsedResponse as UserInformation);
+                        setUserInfo(parsedResponse as User);
                     }
                     break;
                 

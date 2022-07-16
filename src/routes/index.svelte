@@ -1,10 +1,10 @@
 <script lang="ts">
 import Header from "../components/Header.svelte";
 import { onMount } from "svelte";
-import { isValidUser, userInformation, type UserInformation } from "../context/auth-context";
+import { isValidUser, userInformation, type User } from "../context/auth-context";
 import { doCookieActions } from "../actions/cookies";
 
-let user: UserInformation =
+let user: User =
 {
     id: "0",
     username: "Guest"
@@ -13,12 +13,12 @@ let user: UserInformation =
 onMount(async () => {
     doCookieActions();
 
-    const updateUserInformation = 
+    const updateUser = 
         setInterval(() => {
             if (isValidUser === true) {
                 user = userInformation;
 
-                clearInterval(updateUserInformation);
+                clearInterval(updateUser);
             }
         }, 1000);
 });
